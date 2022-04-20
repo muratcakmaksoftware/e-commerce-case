@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('period_type'); //ödeme periyodu aylık mı yıllık mı bilgisini tutar.
             $table->boolean('auto_pay'); //otomatik ödeme yapılsın mı ?
             $table->boolean('repeat'); //paket bitiminde tekrarlansın mı ?
-            $table->date('expired_at'); //Paket bitiş tarihi bilgisinin tutmaktadır.
+            $table->date('expired_at')->nullable(true); //Paket bitiş tarihi bilgisinin tutmaktadır.
             $table->timestamps();
         });
     }

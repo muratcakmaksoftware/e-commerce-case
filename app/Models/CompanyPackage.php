@@ -9,6 +9,8 @@ class CompanyPackage extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     //Paket bilgisi
     public function package()
     {

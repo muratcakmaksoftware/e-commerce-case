@@ -9,6 +9,8 @@ class Domain extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     //Bu domain hangi şirkete ait
     public function company()
     {

@@ -9,6 +9,8 @@ class CompanyPayment extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     //Ödeme yönteme hangi şirkete ait
     public function company()
     {

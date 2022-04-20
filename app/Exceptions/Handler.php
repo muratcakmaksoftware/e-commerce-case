@@ -2,11 +2,18 @@
 
 namespace App\Exceptions;
 
+use App\Enums\Languages\General\GeneralLanguageFile;
+use App\Traits\APIResponseTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    use APIResponseTrait;
+
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -44,7 +51,15 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            dd($e);
         });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        if($e instanceof ValidationException){
+            return $this->responseBadRequest($e->validator->getMessageBag()->toArray());
+        }
+        return parent::render($request, $e);
     }
 }

@@ -9,6 +9,8 @@ class CompanyPaymentLog extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     //Bu hata hangi ödeme periyodu işleminde gerçekleşti
     public function companyPaymentPeriods()
     {

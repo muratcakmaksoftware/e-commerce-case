@@ -9,6 +9,8 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public $timestamps = true;
 
     //Şirkete ait domainler

@@ -9,6 +9,8 @@ class CompanyPaymentPeriod extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     //Bu period hangi şirkete ait
     public function company()
     {
