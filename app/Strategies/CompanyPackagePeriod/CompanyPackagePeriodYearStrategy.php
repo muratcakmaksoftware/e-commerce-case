@@ -6,8 +6,12 @@ use App\Interfaces\Strategies\CompanyPackagePeriod\CompanyPackagePeriodStrategyI
 
 class CompanyPackagePeriodYearStrategy implements CompanyPackagePeriodStrategyInterface
 {
-    public function createPeriods($attributes)
+    /**
+     * @param array $attributes
+     * @return mixed|void
+     */
+    public function createPeriods(array $attributes)
     {
-        dd('qweqw');
+
     }
 }

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->date('payment_at'); //ödeme tarihi
             $table->unsignedDecimal('price'); //o zamanki paketin perioda göre ayrılmış ödeme fiyatı.
-            $table->boolean('status');//ödeme gerçekleşmiş mi kontrolü
-            $table->boolean('approval');//muhasebe ödemeyi onaylamış mı kontrolü
+            $table->boolean('status')->default(0);//ödeme gerçekleşmiş mi kontrolü
+            $table->boolean('approval')->default(0);//muhasebe ödemeyi onaylamış mı kontrolü
             $table->softDeletes(); //deleted_at
             $table->timestamps();
         });

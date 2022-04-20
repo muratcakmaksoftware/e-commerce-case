@@ -4,5 +4,9 @@ namespace App\Interfaces\Strategies\CompanyPackagePeriod;
 
 interface CompanyPackagePeriodStrategyInterface
 {
-    public function createPeriods($attributes);
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
+    public function createPeriods(array $attributes): array;
 }

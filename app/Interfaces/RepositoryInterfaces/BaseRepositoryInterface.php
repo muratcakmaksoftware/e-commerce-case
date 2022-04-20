@@ -19,7 +19,7 @@ interface BaseRepositoryInterface
      * @param $id
      * @return bool
      */
-    public function update(array $attributes, $id): bool;
+    public function update($id, array $attributes): bool;
 
     /**
      * @param $id

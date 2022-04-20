@@ -35,11 +35,11 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param array $attributes
      * @param $id
+     * @param array $attributes
      * @return bool
      */
-    public function update(array $attributes, $id): bool
+    public function update($id, array $attributes): bool
     {
         $model = $this->getById($id); //for observe event
         return $model->update($attributes);

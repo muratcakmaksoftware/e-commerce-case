@@ -57,6 +57,12 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
+        if(config('app.debug')){
+            if(isset($e)){
+                dd($e);
+            }
+        }
+
         if($e instanceof ValidationException){
             return $this->responseBadRequest($e->validator->getMessageBag()->toArray());
         }

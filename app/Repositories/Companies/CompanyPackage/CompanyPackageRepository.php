@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Companies\CompanyPackage;
 
-use App\Interfaces\RepositoryInterfaces\Companies\Company\CompanyRepositoryInterface;
+use App\Interfaces\RepositoryInterfaces\Companies\CompanyPackage\CompanyPackageRepositoryInterface;
 use App\Models\CompanyPackage;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 
-class CompanyPackageRepository extends BaseRepository implements CompanyRepositoryInterface
+class CompanyPackageRepository extends BaseRepository implements CompanyPackageRepositoryInterface
 {
     /**
      * @param CompanyPackage $model
