@@ -24,19 +24,30 @@ class CompanyPaymentJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $timeout = 120; //işin maksimum sürme süresidir.
+    /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public $timeout = 120; //maksimum işin bitmesi için verilen saniye
 
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
     public $tries = 3; //işin hata oluşma durumunda kaç kere denemesini gerektiğini belirleriz.
 
     /**
-     * Determine the time at which the job should timeout.
+     * Calculate the number of seconds to wait before retrying the job.
      *
-     * @return \DateTime
+     * @return int
      */
-    public function retryUntil(): \DateTime
+    public function backoff()
     {
-        return now()->addDay(); //Ödeme başarısız olursa 1 gün sonraya deneyecektir.
+        return 1 * 24 * 60 * 60; //gün * saat * dakika * saniye | Ödeme başarısız olursa 1 gün sonra tekrar denemeye ayarlandı.
     }
+
 
     private $companyPeriod;
 
@@ -127,7 +138,7 @@ class CompanyPaymentJob implements ShouldQueue
                 'queue_status' => CompanyPaymentQueueStatus::UNSUCCESSFUL->value
             ]);
 
-            throw $errorException; //hata firlatilarak diger denemeyi beklenecektir.
+            $this->fail($errorException); //manuel hata firlatilarak diger deneme beklenecektir.
         }
     }
 
@@ -137,7 +148,7 @@ class CompanyPaymentJob implements ShouldQueue
      * @param Throwable $exception
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function failed(Throwable $exception) //belirlenen denemenin son denemesinde yine hata oluşursa yapılacak işleri belirleriz.
+    public function failed(Throwable $exception) //belirlenen son deneme sayısında yine hata oluşursa yapılacak işleri belirleriz.
     {
         //Ödemeyi yapılmadığı için sistem otomatik olarak şirketi askıya alıyor.
         app(CompanyRepositoryInterface::class)->update($this->companyPeriod->id, [
