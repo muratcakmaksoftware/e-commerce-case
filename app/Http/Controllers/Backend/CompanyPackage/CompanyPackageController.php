@@ -42,10 +42,15 @@ class CompanyPackageController extends Controller
                 PaymentPeriodType::MONTH->value => $companyPackagePeriodStrategy->setStrategy(new CompanyPackagePeriodMonthStrategy()),
                 PaymentPeriodType::YEAR->value => $companyPackagePeriodStrategy->setStrategy(new CompanyPackagePeriodYearStrategy()),
             };
-            
+
             return $this->responseSuccess($companyPackagePeriodStrategy->createPeriods($attributes));
         }
         return $this->responseBadRequest();
+    }
+
+    public function checkCompanyPackage()
+    {
+
     }
 
 }

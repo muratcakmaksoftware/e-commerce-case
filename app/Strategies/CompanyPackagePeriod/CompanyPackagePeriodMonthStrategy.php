@@ -11,12 +11,16 @@ use Carbon\Carbon;
 class CompanyPackagePeriodMonthStrategy implements CompanyPackagePeriodStrategyInterface
 {
 
+    /**
+     * @param array $attributes
+     * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function createPeriods(array $attributes): array
     {
-
         $packageId = $attributes['package_id']; //Satin alinan paket
         $companyId = $attributes['company_id']; //Alan sirket
-        $companyPackageId = $attributes['company_package_id']; //Sirketin ait paket
+        $companyPackageId = $attributes['company_package_id']; //Sirkete ait paket
 
         $package = app()->make(PackageRepositoryInterface::class)->getById($packageId);//paket bilgisi
         $nextMonth = Carbon::now()->addMonth()->toDateString();
