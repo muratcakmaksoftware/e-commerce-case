@@ -24,4 +24,10 @@ class Company extends Model
     {
         return $this->hasMany(CompanyPayment::class);
     }
+
+    //Şirkete ait paketler
+    public function companyPackages()
+    {
+        return $this->hasMany(CompanyPackage::class);
+    }
 }

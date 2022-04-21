@@ -8,5 +8,9 @@ use Illuminate\Support\Collection;
 
 interface CompanyRepositoryInterface extends BaseRepositoryInterface
 {
-
+    /**
+     * @param int $companyId
+     * @return Collection
+     */
+    public function getCompanyPackageDetail(int $companyId): Collection;
 }

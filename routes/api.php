@@ -17,14 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'auth'], function(){
-    Route::post("register", [AuthController::class, 'register'])->name('auth.register');
-    Route::post("login", [AuthController::class, 'login'])->name('auth.login');
+    Route::post('register', [AuthController::class, 'register'])->name('auth.register');
+    Route::post('login', [AuthController::class, 'login'])->name('auth.login');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function(){
     Route::group(['prefix' => 'auth'], function(){
-        Route::post("logout", [AuthController::class, 'logout'])->name('auth.logout');
+        Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
     });
 
-    Route::resource("company-packages", CompanyPackageController::class)->only(['store']);
+    Route::resource('company-packages', CompanyPackageController::class)->only(['store']);
+    Route::get("check-company-packages", [CompanyPackageController::class, 'checkCompanyPackage'])->name('company-packages.check_company_package');
+
 });
