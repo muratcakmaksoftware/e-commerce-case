@@ -16,7 +16,7 @@ php artisan db:seed
 - İlk önce tüm senaryo üzerine veritabanı tasarımı çıkarılıp daha sonrasında yazılmıştır.
 - İstenilen veri doldurmak için **seed/faker** kullanılmıştır ve ödeme sistemi içinde **Queue** kullanılmıştır
 - Schedule kullanılarak her gece saat 03:00 de ödeme var mı kontrolü için **command** yazılmıştır.
-- Kuyruk çalıştırmak için : **php artisan queue:work --queue=company_payments** **<em>Local</em>** ortamında supervisord ile çalışmadığı için hata oluşumda tekrarlama olmayacaktır. Kuyruk ödeme kısmında hata oluşumu kısmını test ederken tekrar kuyruğu çalıştırmalısınız. 
+- Kuyruk çalıştırmak için : **php artisan queue:work --queue=company_payments** **<em>Local</em>** ortamında supervisord ile çalışmadığı için fail oluşumda tekrarlama olmayacaktır. Kuyruk ödeme kısmında fail oluşumunda kısmını test ederken tekrar kuyruğu çalıştırmalısınız. Tekrar denemeyi görebilmeniz için ek olarak release() 'de kullandım.
 
 ### Design Patterns
 - Repository Design Pattern

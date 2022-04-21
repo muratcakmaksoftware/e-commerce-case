@@ -48,7 +48,6 @@ class CompanyPaymentJob implements ShouldQueue
         return 1 * 24 * 60 * 60; //gün * saat * dakika * saniye | Ödeme başarısız olursa 1 gün sonra tekrar denemeye ayarlandı.
     }
 
-
     private $companyPeriod;
 
     /**
@@ -113,7 +112,7 @@ class CompanyPaymentJob implements ShouldQueue
                         'company_id' => $companyPackage->company_id,
                         'company_payment_id' => $companyPackage->company_payment_id,
                         'period_type' => $companyPackage->period_type,
-                        'auto_pay' => $companyPackage->period_type,
+                        'auto_pay' => $companyPackage->auto_pay,
                         'repeat' => $companyPackage->repeat,
                     ]);
                 } else {
@@ -138,7 +137,7 @@ class CompanyPaymentJob implements ShouldQueue
                 'queue_status' => CompanyPaymentQueueStatus::UNSUCCESSFUL->value
             ]);
 
-            $this->fail($errorException); //manuel hata firlatilarak diger deneme beklenecektir.
+            $this->release($this->backoff()); //tekrar deneme icin kac saniye beklensin ?
         }
     }
 
