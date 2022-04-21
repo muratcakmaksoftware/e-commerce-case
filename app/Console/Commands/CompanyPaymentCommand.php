@@ -52,6 +52,7 @@ class CompanyPaymentCommand extends Command
             ->where('company_payment_periods.queue_status', CompanyPaymentQueueStatus::WAITING->value) //Kuyrukta olmayanları alır
             ->where('company_packages.auto_pay', CompanyPaymentAutoPayStatus::ACTIVE->value) //otomatik odeme aktif mi ?
             ->whereDate('payment_at','<=',now()->toDateString()) //ödemesi geçmiş veya ödeme günü ise ödeme alınması için job'a gönderilecektir.
+            ->whereNull('company_packages.deleted_at')->whereNull('company_payment_periods.deleted_at')  //silinmisleri getirme
             ->get();
 
         foreach ($companyPeriods as $companyPeriod){

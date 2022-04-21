@@ -35,7 +35,7 @@ class CompanyPaymentJob implements ShouldQueue
      */
     public function retryUntil(): \DateTime
     {
-        return now()->addSeconds(1); //Ödeme başarısız olursa 1 gün sonraya deneyecektir.
+        return now()->addDay(); //Ödeme başarısız olursa 1 gün sonraya deneyecektir.
     }
 
     private $companyPeriod;
@@ -93,6 +93,9 @@ class CompanyPaymentJob implements ShouldQueue
                     //Mevcut paketin soft delete olarak silinmesi
                     $companyPackageRepository->destroy($this->companyPeriod->company_package_id);
 
+                    //Paketi bagli periodlarin soft delete olarak silinmesi
+                    $companyPaymentPeriodRepository->destoryPackagePeriods($this->companyPeriod->company_package_id);
+
                     //Mevcut paketi tekrar olusturulur ve yeni periods tanimlanmis olur.
                     CompanyPackageService::store([
                         'package_id' => $companyPackage->package_id,
@@ -104,10 +107,11 @@ class CompanyPaymentJob implements ShouldQueue
                     ]);
                 } else {
                     //Paket tekrari acik degil bu yuzden islem yapilmayacak.
+                    //...
                 }
             }
         } else {
-            //Odeme sirasinda olus hata tespit edilmistir ve log yapilacaktir
+            //Odeme sirasinda olusan hata tespit edilmistir ve log yapilacaktir
             $companyPaymentErrorType = CompanyPaymentLogType::from(rand(0, 2))->value;
             $errorException = new Exception('Could not withdraw money from account');
             app()->make(CompanyPaymentLogRepositoryInterface::class)->store(
@@ -117,6 +121,11 @@ class CompanyPaymentJob implements ShouldQueue
                     'description' => $errorException->getMessage()
                 ]
             );
+
+            //Odemenin basarsiz olduguna dahil guncelleme
+            $companyPaymentPeriodRepository->update($this->companyPeriod->company_payment_period_id, [
+                'queue_status' => CompanyPaymentQueueStatus::UNSUCCESSFUL->value
+            ]);
 
             throw $errorException; //hata firlatilarak diger denemeyi beklenecektir.
         }

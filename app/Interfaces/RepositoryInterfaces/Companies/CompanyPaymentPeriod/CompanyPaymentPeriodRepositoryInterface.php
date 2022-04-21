@@ -13,4 +13,10 @@ interface CompanyPaymentPeriodRepositoryInterface extends BaseRepositoryInterfac
      * @return bool
      */
     public function getUnPaidPeriodExistsByPackageId($companyPackageId): bool;
+
+    /**
+     * @param $companyPackageId
+     * @return bool
+     */
+    public function destoryPackagePeriods($companyPackageId):bool;
 }

@@ -28,4 +28,13 @@ class CompanyPaymentPeriodRepository extends BaseRepository implements CompanyPa
             ->where('queue_status', '!=', CompanyPaymentQueueStatus::SUCCESSFULL->value) //odenmemis odeme var mi ?
             ->exists(); //odenmemis odeme kaydi varsa true doner.
     }
+
+    /**
+     * @param $companyPackageId
+     * @return bool
+     */
+    public function destoryPackagePeriods($companyPackageId): bool
+    {
+        return $this->model->where('company_package_id', $companyPackageId)->delete();
+    }
 }
