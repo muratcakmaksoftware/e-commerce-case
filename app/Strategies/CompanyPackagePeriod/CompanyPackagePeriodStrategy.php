@@ -13,7 +13,7 @@ class CompanyPackagePeriodStrategy
         $this->strategy = $strategy;
     }
 
-    public function createPeriods($attributes)
+    public function createPeriods($attributes): array
     {
         return $this->strategy->createPeriods($attributes);
     }

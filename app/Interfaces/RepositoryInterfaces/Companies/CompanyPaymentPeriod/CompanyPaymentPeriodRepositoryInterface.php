@@ -8,5 +8,9 @@ use Illuminate\Support\Collection;
 
 interface CompanyPaymentPeriodRepositoryInterface extends BaseRepositoryInterface
 {
-
+    /**
+     * @param $companyPackageId
+     * @return bool
+     */
+    public function getUnPaidPeriodExistsByPackageId($companyPackageId): bool;
 }

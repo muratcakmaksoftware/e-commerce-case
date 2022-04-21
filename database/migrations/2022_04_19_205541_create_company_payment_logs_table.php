@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('company_payment_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_payment_period_id')->constrained()->onDelete('cascade');
-            $table->unsignedTinyInteger('type');//hata türlerini tutar: unsuccessful, timeout, unknwon error gibi
-            $table->text('description'); //hata bilgisini tutar
+            $table->unsignedTinyInteger('type');//hata türlerini tutar: unsuccessful, timeout, unknown error gibi
+            $table->text('description'); //hata detay bilgisini tutar
             $table->timestamps();
         });
     }

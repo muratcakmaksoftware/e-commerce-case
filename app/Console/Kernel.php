@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('company:payments')->dailyAt('03:00'); // her gece saat 3 de
     }
 
     /**

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('auto_pay'); //otomatik ödeme yapılsın mı ?
             $table->boolean('repeat'); //paket bitiminde tekrarlansın mı ?
             $table->date('expired_at')->nullable(true); //Paket bitiş tarihi bilgisinin tutmaktadır.
+            $table->softDeletes();
             $table->timestamps();
         });
     }

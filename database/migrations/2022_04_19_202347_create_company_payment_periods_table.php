@@ -21,7 +21,8 @@ return new class extends Migration
             $table->unsignedDecimal('price'); //o zamanki paketin perioda göre ayrılmış ödeme fiyatı.
             $table->boolean('status')->default(0);//ödeme gerçekleşmiş mi kontrolü
             $table->boolean('approval')->default(0);//muhasebe ödemeyi onaylamış mı kontrolü
-            $table->softDeletes(); //deleted_at
+            $table->unsignedTinyInteger('queue_status')->default(0);//Kuyruk durumunun tutulması
+            $table->softDeletes();
             $table->timestamps();
         });
     }
